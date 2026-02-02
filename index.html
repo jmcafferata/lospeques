@@ -244,8 +244,10 @@ body {
     opacity: 1;
 }
 
+/* Force tooltip visibility when showing success message */
 .floating-copy-btn .tooltip.show {
     opacity: 1;
+    pointer-events: auto;
 }
 
 .floating-copy-btn .tooltip::after {
@@ -1011,8 +1013,7 @@ html {
             }
         });
 
-        // Show/hide button on scroll for better UX on mobile
-        let lastScrollTop = 0;
+        // Adjust button opacity based on scroll position for better UX
         window.addEventListener('scroll', function() {
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             if (scrollTop > 300) {
@@ -1021,7 +1022,6 @@ html {
             } else {
                 copyBtn.style.opacity = '0.7';
             }
-            lastScrollTop = scrollTop;
         });
     </script>
 
