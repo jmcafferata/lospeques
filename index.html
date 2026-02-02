@@ -1018,8 +1018,10 @@ html {
                         tooltip.textContent = 'Copiar alias';
                         tooltip.classList.remove('show');
                     }, 2000);
+                } finally {
+                    // Always cleanup the textarea
+                    document.body.removeChild(textArea);
                 }
-                document.body.removeChild(textArea);
             }
         });
 
@@ -1028,7 +1030,6 @@ html {
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             if (scrollTop > 300) {
                 copyBtn.style.opacity = '1';
-                copyBtn.style.pointerEvents = 'auto';
             } else {
                 copyBtn.style.opacity = '0.7';
             }
