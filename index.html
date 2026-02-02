@@ -201,6 +201,7 @@ body {
     transition: all 0.3s ease;
     z-index: 999;
     animation: pulse 2s infinite;
+    opacity: 0.7;
 }
 
 .floating-copy-btn:hover {
@@ -969,6 +970,10 @@ html {
         const copyBtn = document.getElementById('copyAliasBtn');
         const tooltip = document.getElementById('copyTooltip');
         const donationAlias = 'donar.los.peques.mp';
+        
+        // Color constants for maintainability
+        const BUTTON_DEFAULT_BG = 'linear-gradient(135deg, #FFB800 0%, #FF8800 100%)';
+        const BUTTON_SUCCESS_BG = 'linear-gradient(135deg, #4CAF50 0%, #45a049 100%)';
 
         copyBtn.addEventListener('click', async function() {
             try {
@@ -980,13 +985,13 @@ html {
                 tooltip.classList.add('show');
                 
                 // Add success animation
-                copyBtn.style.background = 'linear-gradient(135deg, #4CAF50 0%, #45a049 100%)';
+                copyBtn.style.background = BUTTON_SUCCESS_BG;
                 
                 // Reset after 2 seconds
                 setTimeout(() => {
                     tooltip.textContent = 'Copiar alias';
                     tooltip.classList.remove('show');
-                    copyBtn.style.background = 'linear-gradient(135deg, #FFB800 0%, #FF8800 100%)';
+                    copyBtn.style.background = BUTTON_DEFAULT_BG;
                 }, 2000);
             } catch (err) {
                 // Fallback for older browsers
@@ -1000,14 +1005,19 @@ html {
                     document.execCommand('copy');
                     tooltip.textContent = '¡Copiado!';
                     tooltip.classList.add('show');
-                    copyBtn.style.background = 'linear-gradient(135deg, #4CAF50 0%, #45a049 100%)';
+                    copyBtn.style.background = BUTTON_SUCCESS_BG;
                     setTimeout(() => {
                         tooltip.textContent = 'Copiar alias';
                         tooltip.classList.remove('show');
-                        copyBtn.style.background = 'linear-gradient(135deg, #FFB800 0%, #FF8800 100%)';
+                        copyBtn.style.background = BUTTON_DEFAULT_BG;
                     }, 2000);
                 } catch (err) {
                     tooltip.textContent = 'Error al copiar';
+                    tooltip.classList.add('show');
+                    setTimeout(() => {
+                        tooltip.textContent = 'Copiar alias';
+                        tooltip.classList.remove('show');
+                    }, 2000);
                 }
                 document.body.removeChild(textArea);
             }
